@@ -88,7 +88,3 @@ void Employee::setHourlyRate(double HourlyRate){
 double Employee::getHourlyRate(){
     return hourlyRate;
 }
-
-
-//employee - information such as withholding, member of ARetirement or BRetirement, taxable for social security/exempt, 
-//YTD values, termination status, hourly/salary

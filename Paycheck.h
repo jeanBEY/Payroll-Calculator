@@ -1,3 +1,4 @@
+#include "Employee.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -10,6 +11,7 @@ class Paycheck{
         double postTaxHealthDeduction;
         double retirementDeduction401k;
         double retirementDeductionRoth401k;
+        double federalTax;
         double stateTax;
         double stateDisabilityInsuranceTax;
         double stateUnemploymentInsuranceTax;
@@ -17,12 +19,16 @@ class Paycheck{
         double socialSecurityTax;
         double netPay;
         bool directDeposit;
+        Employee* employeePointer;
 
     public:
 
         //Constrctors
         Paycheck();
-        Paycheck(double, double, double, double, double, bool);
+        Paycheck(double, double, double, double, double, bool, Employee*);
+
+        //Destructor
+        ~Paycheck();
 
         //Setters
         void setGrossAmount(double);
@@ -30,6 +36,7 @@ class Paycheck{
         void setPostTaxHealthDeduction(double);
         void setRetirementDeduction401k(double);
         void setRetirementDeductionRoth401k(double);
+        void setFederalTax(double);
         void setStateTax(double);
         void setStateDisabilityInsuranceTax(double);
         void setStateUnemploymentInsuranceTax(double);
@@ -44,6 +51,7 @@ class Paycheck{
         double getPostTaxHealthDeduction();
         double getRetirementDeduction401k();
         double getRetirementDeductionRoth401k();
+        double getFederalTax();
         double getStateTax();
         double getStateDisabilityInsuranceTax();
         double getStateUnemploymentInsuranceTax();
@@ -52,6 +60,7 @@ class Paycheck{
         double getNetPay();
         bool getDirectDeposit();
 
-        //WORK ON NEXT - NEED TO ADD FUNCTIONALITY HERE TO CALCULATE NET PAY & TAXES
+        //Calculate check to get net pay & taxes
+        void calculateCheck(Employee *);
 
 };

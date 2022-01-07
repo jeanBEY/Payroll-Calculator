@@ -16,10 +16,11 @@ Paycheck::Paycheck() {
     socialSecurityTax=0;
     netPay=0;
     directDeposit = false;
+    employeePointer=0;
 }
 
 Paycheck::Paycheck(double grossAmount, double preTaxHealthDeduction, double postTaxHealthDeduction, 
-double retirementDeduction401k, double retirementDeductionRoth401k, bool directDeposit) {
+double retirementDeduction401k, double retirementDeductionRoth401k, bool directDeposit, Employee * EmployeePointer) {
     setGrossAmount(grossAmount);
     setPreTaxHealthDeduction(preTaxHealthDeduction);
     setPostTaxHealthDeduction(postTaxHealthDeduction);
@@ -32,9 +33,15 @@ double retirementDeduction401k, double retirementDeductionRoth401k, bool directD
     medicareTax=0;
     socialSecurityTax=0;
     netPay=0;
+    employeePointer = EmployeePointer;
     
     //WORK ON NEXT - NEED TO ADD FUNCTIONALITY HERE TO CALCULATE NET PAY & TAXES
 } 
+
+//Destructor
+Paycheck::~Paycheck(){
+    delete employeePointer;
+}
 
 void Paycheck::setGrossAmount(double GrossAmount){
     grossAmount = GrossAmount;
@@ -131,3 +138,14 @@ void Paycheck::setDirectDeposit(bool DirectDeposit){
 bool Paycheck::getDirectDeposit(){
     return directDeposit;
 }
+
+void Paycheck::calculateCheck(Employee * EmployeePointer){
+    //federal = Alex W4 * gross - pretaxhealth & 401k
+    //state = Alex W4 * gross - pretax & 401k
+    //medicare = gross - pretax * 1.45%
+    //social security = gross - pretax * 6.2%
+    //SDI = gross - pretax * 1.1%
+    //SUI = gross - pretax * .05%
+    //net pay = gross - deductions (pre & post) - taxes
+}
+

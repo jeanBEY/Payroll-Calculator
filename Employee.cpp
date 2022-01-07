@@ -14,7 +14,8 @@ Employee::Employee() {
     hourlyRate=0;
 }
 
-Employee::Employee(string Name, string Address, string City, string State, long int ZipCode, string EmploymentStatus, string Type, double HourlyRate) {
+Employee::Employee(string Name, string Address, string City, string State, long int ZipCode, string EmploymentStatus, string Type, 
+double HourlyRate, double StatePercentage, double FederalPercentage) {
     setName(Name);
     setAddress(Address); 
     setCity(City);
@@ -23,6 +24,8 @@ Employee::Employee(string Name, string Address, string City, string State, long 
     setEmploymentStatus(EmploymentStatus);
     setType(Type);
     setHourlyRate(HourlyRate);
+    setStatePercentage(StatePercentage);
+    setFederalPercentage(FederalPercentage);
 } 
 
 void Employee::setName(string Name){
@@ -87,4 +90,20 @@ void Employee::setHourlyRate(double HourlyRate){
 
 double Employee::getHourlyRate(){
     return hourlyRate;
+}
+
+void Employee::setStatePercentage(double StatePercentage){
+    statePercentage = StatePercentage;
+}
+
+double Employee::getStatePercentage(){
+    return statePercentage;
+}
+
+void Employee::setFederalPercentage(double FederalPercentage){
+    federalPercentage = FederalPercentage;
+}
+
+double Employee::getFederalPercentage(){
+    return federalPercentage;
 }

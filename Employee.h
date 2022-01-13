@@ -9,8 +9,8 @@ class Employee{
         string city;
         string state;
         long int zipcode;
-        string employmentStatus;
-        string type;
+        string employmentStatus;  //Full Time or Part Time
+        string type;              //Salary or Hourly
         double hourlyRate;
         double statePercentage;   //Will need to incorporate W4 later, for now employee will have set percentage
         double federalPercentage; //Will need to incorporate W4 later, for now employee will have set percentage

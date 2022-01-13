@@ -12,6 +12,8 @@ Employee::Employee() {
     employmentStatus="";
     type="";
     hourlyRate=0;
+    federalPercentage = 0;
+    statePercentage = 0;
 }
 
 Employee::Employee(string Name, string Address, string City, string State, long int ZipCode, string EmploymentStatus, string Type, 

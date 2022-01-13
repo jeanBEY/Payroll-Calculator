@@ -63,4 +63,7 @@ class Paycheck{
         //Calculate check to get net pay & taxes
         void calculateCheck(Employee *);
 
+        //Display check preview
+        void displayCheck();
+
 };

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include "Paycheck.h"
+#include "Employee.h"
+#include "Teacher.h"
 using namespace std;
 
 int main()
@@ -17,6 +19,10 @@ Employee * employee2 = new Employee("Alex", "1224 Egar St", "San Diego", "CA", 9
 Employee * employee3 = new Employee("Jeanvally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
 50.00, .10, .15);
 
+//constructor
+Teacher * employee4 = new Teacher("Alevally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
+50.00, .10, .15, true);
+
 //cout << "hourly rate is: " << employee1.getHourlyRate() << endl;
 Paycheck px1 = Paycheck(100, 0, 0, 0, 0, true, employee1);
 px1.displayCheck();
@@ -26,5 +32,9 @@ px2.displayCheck();
 
 Paycheck px3 = Paycheck(50, 2, 4, 0, 0, true, employee3);
 px3.displayCheck();
+
+Paycheck px4 = Paycheck(50, 2, 4, 0, 0, true, employee4);
+px4.displayCheck();
+cout << "Certificated: " << employee4->getCertificated() << endl;
 
 }

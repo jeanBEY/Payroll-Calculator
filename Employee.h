@@ -1,3 +1,5 @@
+#ifndef Employee_hpp
+#define Employee_hpp
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -45,3 +47,5 @@ class Employee{
         double getStatePercentage();
         double getFederalPercentage();
 };
+
+#endif

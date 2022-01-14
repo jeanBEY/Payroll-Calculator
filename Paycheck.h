@@ -1,10 +1,15 @@
-#include "Employee.h"
+#ifndef Paycheck_hpp
+#define Paycheck_hpp
 #include <iostream>
 #include <iomanip>
+#include "Employee.h"
 using namespace std;
 
+//Base Class or Parent Class or Super Class
 class Paycheck{
-    private: 
+
+    //protected so any derived class has access to the attributes of base class
+    protected: 
         
         double grossAmount;
         double preTaxHealthDeduction;
@@ -67,3 +72,5 @@ class Paycheck{
         void displayCheck();
 
 };
+
+#endif

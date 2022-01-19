@@ -3,6 +3,7 @@
 #include "Paycheck.h"
 #include "Employee.h"
 #include "Teacher.h"
+#include "Payroll.h"
 using namespace std;
 
 int main()
@@ -36,5 +37,11 @@ px3.displayCheck();
 Paycheck px4 = Paycheck(50, 2, 4, 0, 0, true, employee4);
 px4.displayCheck();
 cout << "Certificated: " << employee4->getCertificated() << endl;
+
+Payroll payroll = Payroll(6, 15, 2022, 1, 1, 2022, 
+1, 15, 2022);
+payroll.displayPayrollCheckDate();
+payroll.displayPayrollPayperiod();
+cout << "Quarter: " << payroll.getQuarter() << endl;
 
 }

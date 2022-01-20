@@ -28,7 +28,7 @@ double HourlyRate, double StatePercentage, double FederalPercentage) {
     setHourlyRate(HourlyRate);
     setStatePercentage(StatePercentage);
     setFederalPercentage(FederalPercentage);
-} 
+}
 
 void Employee::setName(string Name){
     name = Name;
@@ -108,4 +108,8 @@ void Employee::setFederalPercentage(double FederalPercentage){
 
 double Employee::getFederalPercentage(){
     return federalPercentage;
+}
+
+void Employee::showSummerSchedule(){
+    cout << "I have to work this summer." << endl;
 }

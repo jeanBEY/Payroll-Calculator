@@ -20,9 +20,11 @@ Employee * employee2 = new Employee("Alex", "1224 Egar St", "San Diego", "CA", 9
 Employee * employee3 = new Employee("Jeanvally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
 50.00, .10, .15);
 
+
 //constructor
 Teacher * employee4 = new Teacher("Alevally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
 50.00, .10, .15, true);
+
 
 //cout << "hourly rate is: " << employee1.getHourlyRate() << endl;
 Paycheck px1 = Paycheck(100, 0, 0, 0, 0, true, employee1);
@@ -42,6 +44,14 @@ Payroll payroll = Payroll(6, 15, 2022, 1, 1, 2022,
 1, 15, 2022);
 payroll.displayPayrollCheckDate();
 payroll.displayPayrollPayperiod();
-cout << "Quarter: " << payroll.getQuarter() << endl;
+cout << "Quarter: " << payroll.getQuarter() << endl << endl;
+
+cout << "My name is " << employee3->getName() << " and ";
+employee3->showSummerSchedule();
+cout << endl << endl;
+
+cout << "My name is " << employee4->getName() << " and ";
+employee4->showSummerSchedule();
+cout << endl << endl;
 
 }

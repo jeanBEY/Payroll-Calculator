@@ -18,3 +18,7 @@ void Teacher::setCertificated(bool Certificated){
 bool Teacher::getCertificated(){
     return certificated;
 }
+
+void Teacher::showSummerSchedule(){
+    cout << "I have summer break off!" << endl;
+}

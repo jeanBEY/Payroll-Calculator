@@ -46,6 +46,9 @@ class Employee{
         double getHourlyRate();
         double getStatePercentage();
         double getFederalPercentage();
+
+        //Virtual function
+        virtual void showSummerSchedule();
 };
 
 #endif

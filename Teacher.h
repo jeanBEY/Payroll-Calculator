@@ -20,6 +20,9 @@ class Teacher: public Employee{
 
         //Getter
         bool getCertificated();
+
+        //Virtual function (polymorphism, most derived implementation will be invoked)
+        void showSummerSchedule();
 };
 
 #endif

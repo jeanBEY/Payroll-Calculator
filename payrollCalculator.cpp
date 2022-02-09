@@ -4,11 +4,13 @@
 #include "Employee.h"
 #include "Teacher.h"
 #include "Payroll.h"
+#include "PayrollProgram.h"
 using namespace std;
 
 int main()
 {
 
+/**
 //default constructor
 Employee * employee1 = new Employee;
 
@@ -53,5 +55,9 @@ cout << endl << endl;
 cout << "My name is " << employee4->getName() << " and ";
 employee4->showSummerSchedule();
 cout << endl << endl;
+**/
+
+PayrollProgram test;
+test.menu();
 
 }

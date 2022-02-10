@@ -37,16 +37,21 @@ void PayrollProgram::menu() {
     cin >> choice;
 
     if (choice == 1){
-        cout << "Let's hire an employee! " << endl << endl;
+        cout << endl << "Let's hire an employee! " << endl << endl;
     }
     else if (choice == 2){
-        cout << "Let's process payroll! " << endl << endl;
+        cout << endl << "Let's process payroll! " << endl << endl;
     }
     else if (choice == 3) {
-        cout << "Quitting the program! " << endl << endl;
+        cout << endl << "Quitting the program! " << endl << endl;
+        quit();
     }
     else{
-        cout << "Invalid entry!  Try again..." << endl << endl;
+        cout << endl << "Invalid entry!  Try again..." << endl << endl;
         menu();
     }
+}
+
+int PayrollProgram::quit() {
+    return 0;
 }

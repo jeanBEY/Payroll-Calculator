@@ -58,6 +58,18 @@ void PayrollProgram::menu() {
 //Hire one employee at a time.  The employee will be valid for the duration of the program.
 void PayrollProgram::hireEmployee() {
 
+    //New employee attributes
+    string Name;
+    string Address;
+    string City;
+    string State;
+    long int ZipCode;
+    string EmploymentStatus;
+    string Type;
+    double HourlyRate;
+    double StatePercentage;
+    double FederalPercentage;
+
     //Only asked the first time the employer hires their first employee
     if(askedForBudgetedNumOfEmployees == false){
         cout << endl << "How many employees in total do you plan on employing?" << endl << endl;
@@ -65,11 +77,83 @@ void PayrollProgram::hireEmployee() {
         cin.ignore();
         askedForBudgetedNumOfEmployees = true;
         activeEmployeeArray = new Employee * [(budgetedNumOfEmployees * 2)];        //initialize array of Employee pointers to be double the 
-                                                                                    //anticipated employees to be employed
+                                                                                    //anticipated employees the employer expects to employ
     }
 
     //Hire an employee
     cout << endl << "Let's hire an employee!" << endl << endl;
+    cout << endl << "Please enter the following information..." << endl;
+    cout << endl << "Name: " << endl;
+    cin >> Name;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Address: " << endl;
+    cin >> Address;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "City: " << endl;
+    cin >> City;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "State: " << endl;
+    cin >> State;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Zip Code: " << endl;
+    cin >> ZipCode;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Employment Status (Full Time or Part Time): " << endl;
+    cin >> EmploymentStatus;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Type (Salary or Hourly): " << endl;
+    cin >> Type;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Hourly Rate: " << endl;
+    cin >> HourlyRate;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    cout << endl << "Federal Withholding (1 for Single or 2 for Married): " << endl;
+    int SingleOrMarriedFed;
+    cin >> SingleOrMarriedFed;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    if(SingleOrMarriedFed == 1){
+        FederalPercentage = .07;
+    }
+    else if(SingleOrMarriedFed == 2){
+        FederalPercentage = .04;
+    }
+
+    cout << endl << "State Withholding (1 for Single or 2 for Married): " << endl;
+    int SingleOrMarriedState;
+    cin >> SingleOrMarriedState;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    if(SingleOrMarriedState == 1){
+        StatePercentage = .07;
+    }
+    else if(SingleOrMarriedState == 2){
+        StatePercentage = .04;
+    }
+
+    Employee * employeePointer;                           
+    employeePointer = new Employee(Name, Address, City, State, ZipCode, 
+    EmploymentStatus, Type, HourlyRate, StatePercentage, FederalPercentage);
+    activeEmployeeArray[activeEmployeeCount] = employeePointer;                 //assign new Employee pointer to current empty index
+    activeEmployeeCount+=1;                                                     //incrememnt active employee count to include new hire just added
+
+
 }
 
 int PayrollProgram::quit() {

@@ -147,12 +147,51 @@ void PayrollProgram::hireEmployee() {
         StatePercentage = .04;
     }
 
+    //Dynamically allocate Employee object & store address in temporary Employee pointer
     Employee * employeePointer;                           
     employeePointer = new Employee(Name, Address, City, State, ZipCode, 
     EmploymentStatus, Type, HourlyRate, StatePercentage, FederalPercentage);
-    activeEmployeeArray[activeEmployeeCount] = employeePointer;                 //assign new Employee pointer to current empty index
-    activeEmployeeCount+=1;                                                     //incrememnt active employee count to include new hire just added
 
+    //Check if there is space in the array before adding the new Employee pointer
+    if(activeEmployeeCount< (budgetedNumOfEmployees*2)){
+
+        //assign address in temporary Employee pointer to current empty index
+        activeEmployeeArray[activeEmployeeCount] = employeePointer; 
+
+        //incrememnt active employee count to include new hire just added
+        activeEmployeeCount+=1;                 
+    }
+    else if (activeEmployeeCount >= (budgetedNumOfEmployees*2)){
+        //Create temp array
+        Employee ** tempEmployeeArray = new Employee * [(budgetedNumOfEmployees * 2)];                                 
+
+        //Copy active employee array elements > temp array
+        for(int i = 0; i < (budgetedNumOfEmployees *2); i++){
+            tempEmployeeArray[i] = activeEmployeeArray[i];
+        }
+
+        //Delete active employee array elements (freed the array that the pointer variable is pointing to)
+        delete [] activeEmployeeArray;
+        activeEmployeeArray = 0;        //set to null or 0 because that deallocated memory could be used by another progra,
+
+        //Updating budgeted number of employees & create larger dynamically allocated array
+        int tempBudgetedNumOfEmployees = budgetedNumOfEmployees;
+        budgetedNumOfEmployees = activeEmployeeCount;  
+        activeEmployeeArray = new Employee * [(budgetedNumOfEmployees * 2)];
+
+        //Copy temp array > new larger active employee array
+        for(int i = 0; i < (tempBudgetedNumOfEmployees *2); i++){
+            activeEmployeeArray[i] = tempEmployeeArray[i];
+        }
+
+        //ADD NEW HIRE TO ARRAY
+
+        //assign address in temporary Employee pointer to current empty index
+        activeEmployeeArray[activeEmployeeCount] = employeePointer; 
+
+        //incrememnt active employee count to include new hire just added
+        activeEmployeeCount+=1;     
+    }                                    
 
 }
 

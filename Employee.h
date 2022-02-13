@@ -49,6 +49,10 @@ class Employee{
 
         //Virtual function
         virtual void showSummerSchedule();
+
+        //Display Employee information
+        void displayEmployeeInformation();
+
 };
 
 #endif

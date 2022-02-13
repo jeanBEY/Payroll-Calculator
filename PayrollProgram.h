@@ -47,6 +47,16 @@ class PayrollProgram{
         //Exit program
         int quit();
 
+        //Getters
+        int getActiveEmployeeCount();
+        int getBudgetedNumOfEmployees();
+        bool getAskedForBudgetedNumOfEmployees();
+
+        //Setters
+        void setActiveEmployeeCount(int);
+        void setBudgetedNumOfEmployees(int);
+        void setAskedForBudgetedNumOfEmployees(bool);
+
 };
 
 #endif

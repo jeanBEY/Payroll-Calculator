@@ -110,6 +110,21 @@ double Employee::getFederalPercentage(){
     return federalPercentage;
 }
 
+//Virtual function
 void Employee::showSummerSchedule(){
     cout << "I have to work this summer." << endl;
+}
+
+void Employee::displayEmployeeInformation(){
+    cout << endl << "Name:                  " << name <<endl;
+    cout << "Address:               " << address <<endl; 
+    cout << "City:                  " << city <<endl;
+    cout << "State:                 " << state <<endl;
+    cout << "Zip Code:              " << zipcode <<endl;
+    cout << "Employment Status:     " << employmentStatus <<endl;
+    cout << "Type:                  " << type <<endl;
+    cout << "Hourly Rate:           " << hourlyRate <<endl;
+    cout << "Federal Percentage:    " << federalPercentage <<endl;
+    cout << "State Percentage:      " << statePercentage <<endl << endl;
+
 }

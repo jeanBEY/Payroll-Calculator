@@ -23,6 +23,31 @@ PayrollProgram::~PayrollProgram() {
 
 }
 
+//Getters
+int PayrollProgram::getActiveEmployeeCount(){
+    return activeEmployeeCount;
+}
+
+int PayrollProgram::getBudgetedNumOfEmployees(){
+    return budgetedNumOfEmployees;
+}
+
+bool PayrollProgram::getAskedForBudgetedNumOfEmployees(){
+    return askedForBudgetedNumOfEmployees;
+}
+
+//Setters
+void PayrollProgram::setActiveEmployeeCount(int ActiveEmployeeCount){
+    activeEmployeeCount = ActiveEmployeeCount;
+}
+void PayrollProgram::setBudgetedNumOfEmployees(int BudgetedNumOfEmployees){
+    budgetedNumOfEmployees = BudgetedNumOfEmployees;
+}
+void PayrollProgram::setAskedForBudgetedNumOfEmployees(bool AskedForBudgetedNumOfEmployees){
+    askedForBudgetedNumOfEmployees = AskedForBudgetedNumOfEmployees;
+}
+
+
 void PayrollProgram::menu() {
 
     int choice;
@@ -75,7 +100,7 @@ void PayrollProgram::hireEmployee() {
         cout << endl << "How many employees in total do you plan on employing?" << endl << endl;
         cin >> budgetedNumOfEmployees;
         cin.ignore();
-        askedForBudgetedNumOfEmployees = true;
+        setAskedForBudgetedNumOfEmployees(true);
         activeEmployeeArray = new Employee * [(budgetedNumOfEmployees * 2)];        //initialize array of Employee pointers to be double the 
                                                                                     //anticipated employees the employer expects to employ
     }
@@ -155,11 +180,18 @@ void PayrollProgram::hireEmployee() {
     //Check if there is space in the array before adding the new Employee pointer
     if(activeEmployeeCount< (budgetedNumOfEmployees*2)){
 
+        //ADD NEW HIRE TO ARRAY
+
         //assign address in temporary Employee pointer to current empty index
         activeEmployeeArray[activeEmployeeCount] = employeePointer; 
 
+        //Display employee information that you just hired
+        cout << "Great!  You've hired the following employee: " << endl;
+        activeEmployeeArray[activeEmployeeCount]->displayEmployeeInformation();
+
         //incrememnt active employee count to include new hire just added
         activeEmployeeCount+=1;                 
+
     }
     else if (activeEmployeeCount >= (budgetedNumOfEmployees*2)){
         //Create temp array
@@ -188,6 +220,10 @@ void PayrollProgram::hireEmployee() {
 
         //assign address in temporary Employee pointer to current empty index
         activeEmployeeArray[activeEmployeeCount] = employeePointer; 
+
+        //Display employee information that you just hired
+        cout << "Great!  You've hired the following employee: " << endl;
+        activeEmployeeArray[activeEmployeeCount]->displayEmployeeInformation();
 
         //incrememnt active employee count to include new hire just added
         activeEmployeeCount+=1;     

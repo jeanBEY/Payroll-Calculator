@@ -6,7 +6,8 @@ using namespace std;
 
 class Employee{
     protected: 
-        string name;
+        string lastName;
+        string firstName;
         string address; 
         string city;
         string state;
@@ -21,10 +22,11 @@ class Employee{
 
         //Constrctors
         Employee();
-        Employee(string, string, string, string, long int, string, string, double, double, double);
+        Employee(string, string, string, string, string, long int, string, string, double, double, double);
 
         //Setters
-        void setName(string);
+        void setLastName(string);
+        void setFirstName(string);
         void setAddress(string);
         void setCity(string);
         void setState(string);
@@ -36,7 +38,8 @@ class Employee{
         void setFederalPercentage(double);
 
         //Getters
-        string getName();
+        string getLastName();
+        string getFirstName();
         string getAddress();
         string getCity();
         string getState();

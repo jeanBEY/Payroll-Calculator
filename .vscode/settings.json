@@ -4,6 +4,10 @@
         "ostream": "cpp",
         "iomanip": "cpp",
         "iosfwd": "cpp",
-        "ios": "cpp"
-    }
+        "ios": "cpp",
+        "__tuple": "cpp",
+        "array": "cpp",
+        "istream": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

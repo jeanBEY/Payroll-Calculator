@@ -13,7 +13,7 @@ class Teacher: public Employee{
         
     public:
         //Constrctor
-        Teacher(string, string, string, string, long int, string, string, double, double, double, bool);
+        Teacher(string, string, string, string, string, long int, string, string, double, double, double, bool);
 
         //Setter
         void setCertificated(bool);

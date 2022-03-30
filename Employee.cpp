@@ -4,7 +4,8 @@
 using namespace std;
 
 Employee::Employee() {
-    name = "";
+    lastName = "";
+    firstName = "";
     address =""; 
     city="";
     state="";
@@ -16,9 +17,10 @@ Employee::Employee() {
     statePercentage = 0;
 }
 
-Employee::Employee(string Name, string Address, string City, string State, long int ZipCode, string EmploymentStatus, string Type, 
+Employee::Employee(string lastName, string firstName, string Address, string City, string State, long int ZipCode, string EmploymentStatus, string Type, 
 double HourlyRate, double StatePercentage, double FederalPercentage) {
-    setName(Name);
+    setLastName(lastName);
+    setFirstName(firstName);
     setAddress(Address); 
     setCity(City);
     setState(State);
@@ -30,12 +32,20 @@ double HourlyRate, double StatePercentage, double FederalPercentage) {
     setFederalPercentage(FederalPercentage);
 }
 
-void Employee::setName(string Name){
-    name = Name;
+void Employee::setLastName(string LastName){
+    lastName = LastName;
 }
 
-string Employee::getName(){
-    return name;
+void Employee::setFirstName(string FirstName){
+    firstName = FirstName;
+}
+
+string Employee::getLastName(){
+    return lastName;
+}
+
+string Employee::getFirstName(){
+    return firstName;
 }
 
 void Employee::setAddress(string Address){
@@ -116,7 +126,9 @@ void Employee::showSummerSchedule(){
 }
 
 void Employee::displayEmployeeInformation(){
-    cout << endl << "Name:                  " << name <<endl;
+    cout << endl;
+    cout << "Last Name:             " << lastName <<endl;
+    cout << "First Name:            " << firstName << endl;
     cout << "Address:               " << address <<endl; 
     cout << "City:                  " << city <<endl;
     cout << "State:                 " << state <<endl;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include "Paycheck.h"
 #include "Employee.h"
 #include "Teacher.h"

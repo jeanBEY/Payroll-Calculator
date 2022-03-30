@@ -1,5 +1,4 @@
 #include "Paycheck.h"
-#include "Employee.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -178,7 +177,8 @@ void Paycheck::displayCheck(){
     cout << "*        Check Preview         *" << endl;
     cout << "*                              *" << endl;
     cout << "********************************" << endl << endl;
-    cout << "NAME:            " << employeePointer->getName() << endl << endl;  
+    cout << "LAST NAME:       " << employeePointer->getLastName() << endl << endl;  
+    cout << "FIRST NAME:      " << employeePointer->getLastName() << endl << endl;  
     cout << "EARNINGS" << endl;
     cout << "Gross:           " << setprecision(2) << fixed << getGrossAmount() << endl << endl;
     cout << "DEDUCTIONS" << endl;

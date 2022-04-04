@@ -38,6 +38,18 @@ bool PayrollProgram::getAskedForBudgetedNumOfEmployees(){
     return askedForBudgetedNumOfEmployees;
 }
 
+int PayrollProgram::getPayrollCount(){
+    return payrollCount;
+}
+
+int PayrollProgram::getPayrollFrequency(){
+    return payrollFrequency;
+}
+
+bool PayrollProgram::getAskedForPayrollFrequency(){
+    return askedForPayrollFrequency;
+}
+
 //Setters
 void PayrollProgram::setActiveEmployeeCount(int ActiveEmployeeCount){
     activeEmployeeCount = ActiveEmployeeCount;
@@ -47,6 +59,18 @@ void PayrollProgram::setBudgetedNumOfEmployees(int BudgetedNumOfEmployees){
 }
 void PayrollProgram::setAskedForBudgetedNumOfEmployees(bool AskedForBudgetedNumOfEmployees){
     askedForBudgetedNumOfEmployees = AskedForBudgetedNumOfEmployees;
+}
+
+void PayrollProgram::setPayrollCount(int payrollCount){
+    payrollCount = payrollCount;
+}
+
+void PayrollProgram::setPayrollFrequency(int PayrollFrequency){
+    payrollFrequency = PayrollFrequency;
+}
+
+void PayrollProgram::setAskedForPayrollFrequency(bool AskedForPayrollFrequency){
+    askedForPayrollFrequency = AskedForPayrollFrequency;
 }
 
 
@@ -70,15 +94,15 @@ void PayrollProgram::menu() {
         hireEmployee();
     }
     else if (choice == 2){
-        cout << endl << "Let's process payroll! " << endl << endl;
+        cout << endl << "LET'S PROCESS PAYROLL! " << endl << endl;
         processPayroll();
     }
     else if (choice == 3) {
-        cout << endl << "Quitting the program! " << endl << endl;
+        cout << endl << "QUITTING THE PROGRAM! " << endl << endl;
         quit();
     }
     else{
-        cout << endl << "Invalid entry!  Try again..." << endl << endl;
+        cout << endl << "INVALID ENTRY!  TRY AGAIN..." << endl << endl;
         menu();
     }
     
@@ -329,7 +353,7 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         lastNameLeft = leftArray[indexOfSubArrayOne]->getLastName();
         lastNameRight = rightArray[indexOfSubArrayTwo]->getLastName();
 
-        cout << endl << "Comparing " << lastNameLeft << " vs " << lastNameRight << endl;
+        //cout << endl << "Comparing " << lastNameLeft << " vs " << lastNameRight << endl;
 
         // Find which name is shorter using .length()
         int shorterNameLength;
@@ -343,20 +367,20 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         bool leftLessThanOrEqualToRight = true;
         bool continueChecking = true;
 
-        cout << "Check Point 1" << endl;
+        //cout << "Check Point 1" << endl;
 
         // Loop through this next part for all characters in each name for comparison
         for (int i = 0; i < shorterNameLength; i++)
-        {   cout << "Check Point A" << endl;    
+        {   //cout << "Check Point A" << endl;    
             if((i < shorterNameLength) && (leftLessThanOrEqualToRight == true) && (continueChecking == true))
             {
-                cout << "Check Point B: " << lastNameLeft[i] << " " << lastNameRight[i] << endl;
+                //cout << "Check Point B: " << lastNameLeft[i] << " " << lastNameRight[i] << endl;
                 // Compare ascii values as I showed above.
                 // If one is larger than the other, swap them.    
                 if (lastNameLeft[i] > lastNameRight[i]) {
                     leftLessThanOrEqualToRight = false;
                     continueChecking = false;
-                    cout << "Check Point F, right is greater" << endl;
+                    //cout << "Check Point F, right is greater" << endl;
                 }        
                 else if (lastNameLeft[i] < lastNameRight[i]) 
                 {
@@ -364,12 +388,12 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
                 }
                 else if (lastNameLeft[i] == lastNameRight[i]) 
                 {
-                    cout << "Check Point C" << endl;
+                    //cout << "Check Point C" << endl;
                     //if on last index of shortest name & left name is longer, left name is not <= right, therefore the right element will be added
                     if(i == (shorterNameLength-1))
-                    {   cout << "Check Point D" << endl;
+                    {   //cout << "Check Point D" << endl;
                         if(lastNameLeft.length() > lastNameRight.length())
-                        {   cout << "Check Point E" << endl;
+                        {   //cout << "Check Point E" << endl;
                             leftLessThanOrEqualToRight = false;
                         }
                     }
@@ -381,16 +405,16 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         //end of snippet from link https://stackoverflow.com/questions/43268672/sorting-a-string-array-alphabetically-c
         //************************************************************************************
 
-        cout << "Check Point 2" << endl;
+        //cout << "Check Point 2" << endl;
 
         if (leftLessThanOrEqualToRight == true) {
             activeEmployeeArray[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
             indexOfSubArrayOne++;
-            cout << "Check Point 3" << endl;
+            //cout << "Check Point 3" << endl;
         }
         else {
             activeEmployeeArray[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-            cout << "Check Point 4" << endl;
+            //cout << "Check Point 4" << endl;
             indexOfSubArrayTwo++;
         }
         indexOfMergedArray++;
@@ -410,7 +434,7 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         indexOfMergedArray++;
     }
 
-    cout << "Check Point 5" << endl;
+    //cout << "Check Point 5" << endl;
 
     delete [] leftArray;        
     leftArray = 0;              //set to null or 0 because that deallocated memory could be used by another program
@@ -429,8 +453,8 @@ void PayrollProgram::mergeSortActiveEmployeeArray(Employee ** activeEmployeeArra
     
         int mid = begin + (end - begin) / 2;
 
-        cout << endl << "inside mergesort (" << begin << " , " << end << " ) " << endl;
-        cout << "mid: " << mid << endl;
+        //cout << endl << "inside mergesort (" << begin << " , " << end << " ) " << endl;
+        //cout << "mid: " << mid << endl;
 
         mergeSortActiveEmployeeArray(activeEmployeeArray, begin, mid);
         mergeSortActiveEmployeeArray(activeEmployeeArray, mid + 1, end);
@@ -439,15 +463,205 @@ void PayrollProgram::mergeSortActiveEmployeeArray(Employee ** activeEmployeeArra
 
 void PayrollProgram::processPayroll(){
 
-    cout << endl << "Inside processPayroll() prior to the mergesort" << endl;
+    //cout << endl << "Inside processPayroll() prior to the mergesort" << endl;
+    //alphabetize active employees
     mergeSortActiveEmployeeArray(activeEmployeeArray, 0, activeEmployeeCount-1);
-    cout << endl << "Inside processPayroll() AFTER to the mergesort" << endl;
+    //cout << endl << "Inside processPayroll() AFTER to the mergesort" << endl;
     
     //printing employee list
+    cout << endl << "--------------------------------------------" << endl;
     cout << endl << "STARTING PAYROLL - Printing Employee List..." << endl;
+    cout <<  "--------------------------------------------" << endl;
     printEmployeeList();  
+    
+    //gather payroll information
+    int year;
+    int month;
+    int day;
 
-    menu();
+    int payperiodStartYear;
+    int payperiodStartMonth;
+    int payperiodStartDay;
+
+    int payperiodEndYear;
+    int payperiodEndMonth;
+    int payperiodEndDay;
+
+    //Only asked the first time the employer starts their first payroll
+    if(askedForPayrollFrequency == false){
+        int tempPayrollFrequency;
+        cout << endl << "How many check dates will you process this year (payroll frequency)?" << endl << endl;
+        cout << "1 for WEEKLY (52 checks per year)" << endl;
+        cout << "2 for BIWEEKLY (26 checks per year)" << endl;
+        cout << "3 for SEMI-MONTHLY (24 checks per year)" << endl;
+        cout << "4 for MONTHLY (12 checks per year)" << endl;
+        cout << "5 for QUARTERLY (4 checks per year)" << endl;
+        cout << "6 for ANNUAL (1 check per year)" << endl << endl;
+        cout << "Please enter number (from list above: " << endl;
+        cin >> tempPayrollFrequency;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+        //determine payroll frequency
+        switch(tempPayrollFrequency) {
+            case '1'  :
+                tempPayrollFrequency = 52;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+            case '2'  :
+                tempPayrollFrequency = 26;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+            case '3'  :
+                tempPayrollFrequency = 24;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+            case '4'  :
+                tempPayrollFrequency = 12;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+            case '5'  :
+                tempPayrollFrequency = 4;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+            case '6'  :
+                tempPayrollFrequency = 1;
+                setPayrollFrequency(tempPayrollFrequency);
+                break; 
+        }
+
+        setAskedForPayrollFrequency(true);
+        payrollHistoryArray = new Payroll * [(payrollFrequency * 2)];   //initialize array of Payroll pointers to be double the 
+                                                                        //anticipated number of payrolls the employer expects to process
+    }
+
+    //gather check date information
+    cout << endl << "--------------------------------------------" << endl;
+    cout << "ENTER CHECK DATE" << endl << endl;
+    cout << "Instructions" << endl;
+    cout << "------------" << endl;
+    cout << "**Month:  2 digit format, 01 for Jan, 02, fot Feb, etc..." << endl;
+    cout << "**Day:  2 digit format, 01, 02, ...,30" << endl;
+    cout << "**Year:  4 digit format, for example 2022" << endl;
+    cout <<  "--------------------------------------------" << endl << endl;
+    cout << "Please key in..." << endl << endl;
+    cout << "MONTH: ";
+    cin >> month;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "DAY:   ";
+    cin >> day;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "YEAR:  ";
+    cin >> year;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    
+    cout << endl << "YOU ENTERED CHECK DATE: " << month << "/" << day << "/" << year  << endl << endl;
+
+
+    //gather pay period start date
+    cout << endl << "--------------------------------------------" << endl;
+    cout << "ENTER PAY PERIOD START DATE" << endl << endl;
+    cout << "Instructions" << endl;
+    cout << "------------" << endl;
+    cout << "**Month:  2 digit format, 01 for Jan, 02, fot Feb, etc..." << endl;
+    cout << "**Day:  2 digit format, 01, 02, ...,30" << endl;
+    cout << "**Year:  4 digit format, for example 2022" << endl;
+    cout <<  "--------------------------------------------" << endl << endl;
+    cout << "Please key in..." << endl << endl;
+    cout << "MONTH: ";
+    cin >> payperiodStartMonth;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "DAY:   ";
+    cin >> payperiodStartDay;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "YEAR:  ";
+    cin >> payperiodStartYear;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    
+    cout << endl << "YOU ENTERED PAY PERIOD START DATE: " << payperiodStartMonth << "/" << payperiodStartDay << "/" << payperiodStartYear << endl << endl;
+
+
+    //gather pay period end date
+    cout << endl << "--------------------------------------------" << endl;
+    cout << "ENTER PAY PERIOD END DATE" << endl << endl;
+    cout << "Instructions" << endl;
+    cout << "------------" << endl;
+    cout << "**Month:  2 digit format, 01 for Jan, 02, fot Feb, etc..." << endl;
+    cout << "**Day:  2 digit format, 01, 02, ...,30" << endl;
+    cout << "**Year:  4 digit format, for example 2022" << endl;
+    cout <<  "--------------------------------------------" << endl << endl;
+    cout << "Please key in..." << endl << endl;
+    cout << "MONTH: ";
+    cin >> payperiodEndMonth;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "DAY:   ";
+    cin >> payperiodEndDay;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    cout << "YEAR:  ";
+    cin >> payperiodEndYear;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+    
+    cout << endl << "YOU ENTERED PAY PERIOD START DATE: " << payperiodEndMonth << "/" << payperiodEndDay << "/" << payperiodEndYear << endl << endl;
+
+    //STARTING HERE SUNDAY
+
+    //Dynamically allocate Payroll object & store address in temporary Payroll pointer
+    Payroll * payrollPointer = new Payroll (month, day, year, payperiodStartMonth, payperiodStartDay, payperiodStartYear, payperiodEndMonth, payperiodEndDay, payperiodEndYear);
+
+    //Check if there is space in the array before adding the new Payroll pointer
+    if(payrollCount< (payrollFrequency*2)){
+
+        //ADD PAYROLL TO ARRAY
+
+        //assign address in temporary Payroll pointer to current empty index
+        payrollHistoryArray[payrollCount] = payrollPointer; 
+
+        //incrememnt payroll count to include Payroll just added
+        payrollCount++;       
+
+        //INCOMPLETE, ONCE ADDED TO ARRAY, NOW NEED TO LOOP THROUGH EE LIST & CREATE LINKED LIST    
+
+        //display menu 
+        menu(); 
+
+    }
+    else if (payrollCount >= (payrollFrequency*2)){
+        //Create temp array
+        Payroll ** tempPayrollArray = new Payroll * [(payrollFrequency * 2)];                                 
+
+        //Copy current payroll history array elements > temp array
+        for(int i = 0; i < (payrollFrequency *2); i++){
+            tempPayrollArray[i] = payrollHistoryArray[i];
+        }
+
+        //Delete current payroll history array elements (freed the array that the pointer variable is pointing to)
+        delete [] payrollHistoryArray;
+        payrollHistoryArray = 0;        //set to null or 0 because that deallocated memory could be used by another program
+
+        //Updating budgeted number of employees & create larger dynamically allocated array
+        payrollFrequency = payrollCount;  
+        payrollHistoryArray = new Payroll * [(payrollFrequency * 2)];
+
+        //Copy temp array > new larger payroll history array
+        for(int i = 0; i < (payrollCount); i++){
+            payrollHistoryArray[i] = tempPayrollArray[i];
+        }
+
+        //Delete temp payroll history array
+        delete [] tempPayrollArray;
+        tempPayrollArray = 0;          //set to null or 0 because that deallocated memory could be used by another program
+
+        //ADD PAYROLL TO ARRAY
+
+        //assign address in temporary Payroll pointer to current empty index
+        payrollHistoryArray[payrollCount] = payrollPointer; 
+
+        //incrememnt payroll count to include new Payroll just added
+        payrollCount++;     
+
+        //display menu
+        menu();
+
+    }
 
 }
 

@@ -22,6 +22,14 @@ class PayrollProgram{
                                                         //used for dynamically allocating activeEmployeeArray at run time
         bool askedForBudgetedNumOfEmployees = false;
 
+        int payrollCount = 0;
+        Payroll ** payrollHistoryArray;                 //dynamic array of type Payroll * (or Payroll pointer),
+                                                        //created at run time based on user input
+
+        int payrollFrequency;                           //holds number of payrolls expected to process per calendar year
+
+        bool askedForPayrollFrequency = false;          
+
     public:
 
         //Constrctor
@@ -61,11 +69,17 @@ class PayrollProgram{
         int getActiveEmployeeCount();
         int getBudgetedNumOfEmployees();
         bool getAskedForBudgetedNumOfEmployees();
+        int getPayrollCount();
+        int getPayrollFrequency();
+        bool getAskedForPayrollFrequency();
 
         //Setters
         void setActiveEmployeeCount(int);
         void setBudgetedNumOfEmployees(int);
         void setAskedForBudgetedNumOfEmployees(bool);
+        void setPayrollCount(int);
+        void setPayrollFrequency(int);
+        void setAskedForPayrollFrequency(bool);
 
 };
 

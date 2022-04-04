@@ -1,5 +1,6 @@
 #ifndef Payroll_hpp
 #define Payroll_hpp
+#include "Paycheck.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -36,8 +37,15 @@ class Payroll{
        int payrollNumberOfPaychecks;
        int payrollNumberOfEmployees;
 
-       //need to add array or linked list that contains Paycheck objects
-       //each Paycheck object we can access the Employee pointer & attributes
+       struct paycheckNode
+       {
+           Paycheck * paycheckPointer;
+           paycheckNode *next;
+           paycheckNode *previous;
+        };
+        
+        paycheckNode *head;    //head pointer
+        paycheckNode *tail;    //tail pointer
 
     public:
 

@@ -32,6 +32,16 @@ int PayperiodEndMonth, int PayperiodEndDay, int PayperiodEndYear)  //pass in che
     setPayperiodEndMonth(PayperiodEndMonth);
     setPayperiodEndDay(PayperiodEndDay);
     setPayperiodEndYear(PayperiodEndYear);
+
+    setPayrollNumberOfEmployees(0);
+    setPayrollNumberOfPaychecks(0);
+
+    cout << "-----------------------------------" << endl;
+    cout << "Great!  Let's begin the payroll..." << endl;
+    cout << "-----------------------------------" << endl;
+    displayPayrollCheckDate();
+    displayPayrollPayperiod();
+    cout << "-----------------------------------" << endl;
 }
 
 //Destructor
@@ -194,7 +204,7 @@ int Payroll::getPayrollNumberOfEmployees(){
 
 //Display payroll check date
 void Payroll::displayPayrollCheckDate()
-{
+{   
     cout << "Check Date: " << getMonth() << "/" << getDay() << "/" << getYear() << endl;
 }
 

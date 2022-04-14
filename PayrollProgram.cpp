@@ -7,21 +7,42 @@
 using namespace std;
 
 PayrollProgram::PayrollProgram() {
-    cout << "***************************" << endl;
+    cout << endl << "***************************" << endl;
     cout << "*                         *" << endl;
     cout << "*     PAYROLL PROGRAM     *" << endl;
     cout << "*                         *" << endl;
     cout << "***************************" << endl << endl;
     cout << "Welcome!" << endl << endl;
 
+    //initialize starting values
+    activeEmployeeCount = 0; 
+    budgetedNumOfEmployees = 0; 
+    askedForBudgetedNumOfEmployees = false;
+    payrollCount = 0;
+    payrollFrequency = 0;
+    askedForPayrollFrequency = false;
+
 }
 
 PayrollProgram::~PayrollProgram() {
-    cout << "***************************" << endl;
+    cout << endl << "***************************" << endl;
     cout << "*                         *" << endl;
     cout << "*         GOODBYE         *" << endl;
     cout << "*                         *" << endl;
     cout << "***************************" << endl;
+
+    cout << "deleting ee array now" << endl;
+    delete [] activeEmployeeArray;      //delete dynamically allocated array when program quits
+
+    cout << "deleting pr array now" << endl;
+    delete [] payrollHistoryArray;      //delete dynamically allocated array when program quits
+
+    cout << "setting ee array now" << endl;
+    activeEmployeeArray = 0;            //no longer is pointing to memory
+    
+    cout << "setting ee array now" << endl;
+
+    payrollHistoryArray = 0;            //no longer is pointing to memory
 
 }
 
@@ -76,15 +97,15 @@ void PayrollProgram::setAskedForPayrollFrequency(bool AskedForPayrollFrequency){
 
 void PayrollProgram::menu() {
 
-    int choice;
-
-    cout << "***************************" << endl;
+    cout << endl << "***************************" << endl;
     cout << "*           MENU          *" << endl;
     cout << "***************************" << endl << endl;
     cout << "1.) HIRE EMPLOYEE" << endl;
     cout << "2.) PROCESS PAYROLL" << endl;
     cout << "3.) QUIT" << endl << endl;
     cout << "Enter 1 to hire an employee, 2 to process payroll, or, 3 to quit.. " << endl << endl;
+
+    int choice;
 
     cin >> choice;
     cin.clear();
@@ -367,20 +388,20 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         bool leftLessThanOrEqualToRight = true;
         bool continueChecking = true;
 
-        //cout << "Check Point 1" << endl;
+
 
         // Loop through this next part for all characters in each name for comparison
         for (int i = 0; i < shorterNameLength; i++)
-        {   //cout << "Check Point A" << endl;    
+        {   
             if((i < shorterNameLength) && (leftLessThanOrEqualToRight == true) && (continueChecking == true))
             {
-                //cout << "Check Point B: " << lastNameLeft[i] << " " << lastNameRight[i] << endl;
+                
                 // Compare ascii values as I showed above.
                 // If one is larger than the other, swap them.    
                 if (lastNameLeft[i] > lastNameRight[i]) {
                     leftLessThanOrEqualToRight = false;
                     continueChecking = false;
-                    //cout << "Check Point F, right is greater" << endl;
+                    
                 }        
                 else if (lastNameLeft[i] < lastNameRight[i]) 
                 {
@@ -388,12 +409,12 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
                 }
                 else if (lastNameLeft[i] == lastNameRight[i]) 
                 {
-                    //cout << "Check Point C" << endl;
+                    
                     //if on last index of shortest name & left name is longer, left name is not <= right, therefore the right element will be added
                     if(i == (shorterNameLength-1))
-                    {   //cout << "Check Point D" << endl;
+                    {   
                         if(lastNameLeft.length() > lastNameRight.length())
-                        {   //cout << "Check Point E" << endl;
+                        {   
                             leftLessThanOrEqualToRight = false;
                         }
                     }
@@ -405,16 +426,16 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         //end of snippet from link https://stackoverflow.com/questions/43268672/sorting-a-string-array-alphabetically-c
         //************************************************************************************
 
-        //cout << "Check Point 2" << endl;
+
 
         if (leftLessThanOrEqualToRight == true) {
             activeEmployeeArray[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
             indexOfSubArrayOne++;
-            //cout << "Check Point 3" << endl;
+
         }
         else {
             activeEmployeeArray[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-            //cout << "Check Point 4" << endl;
+
             indexOfSubArrayTwo++;
         }
         indexOfMergedArray++;
@@ -434,7 +455,7 @@ void PayrollProgram::merge(Employee ** activeEmployeeArray, int const left, int 
         indexOfMergedArray++;
     }
 
-    //cout << "Check Point 5" << endl;
+
 
     delete [] leftArray;        
     leftArray = 0;              //set to null or 0 because that deallocated memory could be used by another program
@@ -463,6 +484,11 @@ void PayrollProgram::mergeSortActiveEmployeeArray(Employee ** activeEmployeeArra
 
 void PayrollProgram::processPayroll(){
 
+    //if there are no employees, we cannot process payroll, back to menu
+    if(activeEmployeeCount == 0){
+        cout << endl << "You do not have any employees to pay.  Please hire an employee..." << endl;
+        menu();
+    }
     //cout << endl << "Inside processPayroll() prior to the mergesort" << endl;
     //alphabetize active employees
     mergeSortActiveEmployeeArray(activeEmployeeArray, 0, activeEmployeeCount-1);
@@ -497,7 +523,7 @@ void PayrollProgram::processPayroll(){
         cout << "4 for MONTHLY (12 checks per year)" << endl;
         cout << "5 for QUARTERLY (4 checks per year)" << endl;
         cout << "6 for ANNUAL (1 check per year)" << endl << endl;
-        cout << "Please enter number (from list above: " << endl;
+        cout << "Please enter number (from list above): " << endl;
         cin >> tempPayrollFrequency;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
 
@@ -600,9 +626,8 @@ void PayrollProgram::processPayroll(){
     cin >> payperiodEndYear;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
     
-    cout << endl << "YOU ENTERED PAY PERIOD START DATE: " << payperiodEndMonth << "/" << payperiodEndDay << "/" << payperiodEndYear << endl << endl;
+    cout << endl << "YOU ENTERED PAY PERIOD END DATE: " << payperiodEndMonth << "/" << payperiodEndDay << "/" << payperiodEndYear << endl << endl;
 
-    //STARTING HERE SUNDAY
 
     //Dynamically allocate Payroll object & store address in temporary Payroll pointer
     Payroll * payrollPointer = new Payroll (month, day, year, payperiodStartMonth, payperiodStartDay, payperiodStartYear, payperiodEndMonth, payperiodEndDay, payperiodEndYear);
@@ -618,10 +643,8 @@ void PayrollProgram::processPayroll(){
         //incrememnt payroll count to include Payroll just added
         payrollCount++;       
 
-        //INCOMPLETE, ONCE ADDED TO ARRAY, NOW NEED TO LOOP THROUGH EE LIST & CREATE LINKED LIST    
-
-        //display menu 
-        menu(); 
+        //now to add an employee to the payroll to issue a check
+        addEmployeeToPayroll(payrollPointer);
 
     }
     else if (payrollCount >= (payrollFrequency*2)){
@@ -637,7 +660,7 @@ void PayrollProgram::processPayroll(){
         delete [] payrollHistoryArray;
         payrollHistoryArray = 0;        //set to null or 0 because that deallocated memory could be used by another program
 
-        //Updating budgeted number of employees & create larger dynamically allocated array
+        //Updating budgeted number of payrolls & create larger dynamically allocated array
         payrollFrequency = payrollCount;  
         payrollHistoryArray = new Payroll * [(payrollFrequency * 2)];
 
@@ -658,8 +681,8 @@ void PayrollProgram::processPayroll(){
         //incrememnt payroll count to include new Payroll just added
         payrollCount++;     
 
-        //display menu
-        menu();
+        //now to add an employee to the payroll to issue a check
+        addEmployeeToPayroll(payrollPointer);
 
     }
 
@@ -673,11 +696,239 @@ void PayrollProgram::printEmployeeList(){
     
 }
 
+void PayrollProgram::addEmployeeToPayroll(Payroll * currentPayroll){
+
+    int i = 0;
+    int choice = 0;
+
+    //always start at beginning of employee list
+    for(int i = 0; i < activeEmployeeCount; i++){  //REMOVING FOR LOOP FOR NOW..
+        cout << endl << "***************************" << endl;
+        cout << "*     EMPLOYEE LISTING    *" << endl;
+        cout << "***************************" << endl;
+
+        cout << endl << "i = " << i << endl;
+
+        activeEmployeeArray[i]->displayEmployeeInformation();
+
+        cout << endl << "ADD EMPLOYEE TO PAYROLL - Please make a selection:" << endl << endl;
+        cout << "1 - Add check" << endl;
+        cout << "2 - Go to next employee" << endl;
+        cout << "3 - Edit the payroll" << endl;
+        cout << "4 - Quit (your payroll will be deleted & not be processed)" << endl;
+
+        //int choice;  REMOVING FOR NOW..
+
+        cin >> choice;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+        //Add check
+        if(choice == 1){
+
+            double GrossAmount; 
+            double PreTaxHealthDeduction; 
+            double PostTaxHealthDeduction; 
+            double RetirementDeduction401k; 
+            double RetirementDeductionRoth401k; 
+            bool DirectDeposit; 
+            Employee * EmployeePointer = activeEmployeeArray[i];
+
+            cout << "ENTER FOLLOWING INFORMATION:" << endl << endl;
+            cout << "GROSS AMOUNT:" << endl;
+            cin >> GrossAmount;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+            cout << "PRE TAX HEALTH DEDUCTION:" << endl;
+            cin >> PreTaxHealthDeduction;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+            cout << "POST TAX HEALTH DEDUCTION:" << endl;
+            cin >> PostTaxHealthDeduction;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+            cout << "RETIREMENT DEDUCTION 401K:" << endl;
+            cin >> RetirementDeduction401k;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+            cout << "RETIREMENT DEDUCTION ROTH 401K:" << endl;
+            cin >> RetirementDeductionRoth401k;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+            cout << "DIRECT DEPOSIT: 1 for YES, 2 for NO" << endl;
+            int dirdep;
+            cin >> dirdep;
+            if(dirdep == 1){
+                DirectDeposit = 1;      //true
+            }
+            else if(dirdep == 2){
+                DirectDeposit = 0;      //false
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+            currentPayroll->addPaycheckNodeToEnd(GrossAmount, PreTaxHealthDeduction, PostTaxHealthDeduction, RetirementDeduction401k, RetirementDeductionRoth401k, DirectDeposit, EmployeePointer);
+
+            //increment payroll number of checks
+            currentPayroll->incrementPayrollNumberOfChecks();
+
+            
+            if(i == (activeEmployeeCount-1)){
+                //if on last employee, start over by starting at beginning of activeEmployeeArray
+                cout << endl << "This is the last employee in the list." << endl;
+                cout << "Let's start from the beginning again..." << endl;
+                addEmployeeToPayroll(currentPayroll);
+            }
+            
+        }
+
+        //Go to next employee
+        if(choice == 2 && (i != (activeEmployeeCount-1))){
+            //go to next employee if we haven't reached the end of the employee list
+        }
+        if(choice == 2 && (i == (activeEmployeeCount-1))){
+            //if on last employee, start over by starting at beginning of activeEmployeeArray
+            cout << endl << "This is the last employee in the list." << endl;
+            cout << "Let's start from the beginning again..." << endl;
+            addEmployeeToPayroll(currentPayroll);
+        }
+
+        //Edit payroll
+        if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() > 0){
+            editPayroll(currentPayroll);
+        }
+        if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() == 0){
+            
+            //cannot edit payroll with 0 checks
+            cout << endl << "You cannot edit the payroll there are no checks.  Please add an employee to the payroll." << endl;
+            cout << "Let's start from the beginning again..." << endl;
+            addEmployeeToPayroll(currentPayroll);
+        }
+
+        //Quit
+        if(choice == 4){
+
+            cout << endl << "Quit - Your payroll will be deleted & not process..." << endl;
+
+            //this was dynamically allocated so should be deleted
+            delete currentPayroll;
+
+            //set index of currentPayroll to point to NULL or zero & decrement payroll count
+            currentPayroll = 0;
+            payrollCount--;
+
+            menu();
+        }
+
+    }
+}
+
+void PayrollProgram::editPayroll(Payroll * currentPayroll){
+
+    cout << endl << "***************************" << endl;
+    cout << "*       EDIT PAYROLL      *" << endl;
+    cout << "***************************" << endl;
+
+    //always start with head node
+    if(currentPayroll->getIterator() == NULL){
+        currentPayroll->setIterator(currentPayroll->getHeadPaycheckNode());
+    }
+
+    currentPayroll->getIterator()->paycheckPointer->displayCheck();
+
+    //display choices
+    displayEditPayrollChoices();
+
+    int choice;
+
+    cin >> choice;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+
+    //Go to next
+    if(choice == 1){
+        //If there is another paycheck after the current, then go to next paycheck
+        if(currentPayroll->getIterator()->next != NULL){
+            currentPayroll->setIterator(currentPayroll->getIterator()->next);
+            editPayroll(currentPayroll);
+        }
+        else{
+            //Otherwise, you're on the last paycheck
+            cout << endl << "This is the last paycheck in the payroll, you cannot go to the next!" << endl;
+            cout << "Please make another selection..." << endl;
+            editPayroll(currentPayroll);
+        }
+    }
+
+    //Go to previous
+    if(choice == 2){
+        //If there is another paycheck before the current, then go to previous paycheck
+        if(currentPayroll->getIterator()->previous != NULL){
+            currentPayroll->setIterator(currentPayroll->getIterator()->previous);
+        }
+        else{
+            //Otherwise, you're on the first paycheck
+            cout << endl << "This is the first paycheck in the payroll, you cannot go to the previous!" << endl;
+            cout << "Please make another selection..." << endl;
+            editPayroll(currentPayroll);
+        }
+    }
+
+    //Add an employee to payroll
+    if(choice == 3){
+        //Set iterator to NULL so that the next time user wants to edit the payroll, program starts from head node
+        currentPayroll->setIterator(NULL);
+        addEmployeeToPayroll(currentPayroll);
+    }
+
+    //Preview payroll
+    if(choice == 4){
+
+        cout << endl << "***************************" << endl;
+        cout << "*      PREVIEW PAYROLL     *" << endl;
+        cout << "***************************" << endl;
+
+        //Set iterator to NULL so that the next time user wants to edit the payroll, program starts from head node
+        currentPayroll->previewPayroll(currentPayroll->getHeadPaycheckNode());
+
+        cout << "***************************" << endl;
+
+        editPayroll(currentPayroll);
+    }
+
+    //Process the payroll
+    if(choice == 5){
+        currentPayroll->processThePayroll();
+        cout << endl << "YOUR PAYROLL HAS BEEN PROCESSED!" << endl;
+        cout << "Taking you back to the main menu :)" << endl << endl;
+
+        menu();
+    }
+    
+    if(choice == 6){
+        cout << endl << "Quit - The payroll will be deleted & not process..." << endl;
+        cout << "Taking you back to the main menu." << endl << endl;
+
+        //this was dynamically allocated so should be deleted
+        delete currentPayroll;
+
+        //set index of currentPayroll to point to NULL or zero & decrement payroll count
+        currentPayroll = 0;
+        payrollCount--;
+
+        menu();
+    }
+
+}
+
+void PayrollProgram::displayEditPayrollChoices(){
+
+    cout << endl << "EDIT PAYROLL - Please make a selection:" << endl << endl;
+    cout << "1 - Next check" << endl;
+    cout << "2 - Previous check" << endl;
+    cout << "3 - Add an employee to the payroll" << endl;
+    cout << "4 - Preview the payroll" << endl;
+    cout << "5 - Submit & process the payroll" << endl;
+    cout << "6 - Quit - The payroll will be deleted & not process..." << endl;
+
+}
+
 int PayrollProgram::quit() {
-
-    delete [] activeEmployeeArray;      //delete dynamically allocated array when program quits
-
-    activeEmployeeArray = 0;            //no longer is pointing to memory
 
     return 0;
 }

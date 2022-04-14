@@ -16,13 +16,12 @@ int main()
 Employee * employee1 = new Employee;
 
 //constructor
-Employee * employee2 = new Employee("Alex", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
+Employee * employee2 = new Employee("Phom", "Alex", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
 50.00, .05, .075);
 
 //constructor
-Employee * employee3 = new Employee("Jeanvally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
+Employee * employee3 = new Employee("Beato","Jeanvally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 
 50.00, .10, .15);
-
 
 //constructor
 Teacher * employee4 = new Teacher("Alevally", "1224 Egar St", "San Diego", "CA", 92118, "Full Time", "Salary", 

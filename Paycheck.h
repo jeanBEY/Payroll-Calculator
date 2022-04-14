@@ -33,7 +33,6 @@ class Paycheck{
         Paycheck(double, double, double, double, double, bool, Employee*);
 
         //Destructor
-        ~Paycheck();
 
         //Setters
         void setGrossAmount(double);

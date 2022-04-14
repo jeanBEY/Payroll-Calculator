@@ -38,9 +38,7 @@ double retirementDeduction401k, double retirementDeductionRoth401k, bool directD
 } 
 
 //Destructor
-Paycheck::~Paycheck(){
-    delete employeePointer;
-}
+
 
 void Paycheck::setGrossAmount(double GrossAmount){
     grossAmount = GrossAmount;
@@ -178,7 +176,7 @@ void Paycheck::displayCheck(){
     cout << "*                              *" << endl;
     cout << "********************************" << endl << endl;
     cout << "LAST NAME:       " << employeePointer->getLastName() << endl << endl;  
-    cout << "FIRST NAME:      " << employeePointer->getLastName() << endl << endl;  
+    cout << "FIRST NAME:      " << employeePointer->getFirstName() << endl << endl;  
     cout << "EARNINGS" << endl;
     cout << "Gross:           " << setprecision(2) << fixed << getGrossAmount() << endl << endl;
     cout << "DEDUCTIONS" << endl;

@@ -3,10 +3,20 @@
 #include <iomanip>
 using namespace std;
 
-//Constrctors
+//Constructors
 Payroll::Payroll(int Month, int Day, int Year, int PayperiodStartMonth, int PayperiodStartDay, int PayperiodStartYear, 
 int PayperiodEndMonth, int PayperiodEndDay, int PayperiodEndYear)  //pass in check date, pay period start, pay period end (month, day, year)
 {
+    //initialize linked list of paycheck nodes to null
+    head = NULL;
+    tail = NULL;
+    iterator = NULL;
+
+    //initializing starting values
+    payrollHasProcessed = false;
+    payrollNumberOfPaychecks = 0;
+    payrollNumberOfEmployees = 0;
+
     setMonth(Month);
     setDay(Day);
     setYear(Year);
@@ -45,6 +55,19 @@ int PayperiodEndMonth, int PayperiodEndDay, int PayperiodEndYear)  //pass in che
 }
 
 //Destructor
+Payroll::~Payroll(){
+    paycheckNode *temp = head;        //Begin at head of list, and traverse through deallocating
+    while(temp != NULL)
+    {
+        paycheckNode *trash = temp;   //Assign first node to trash
+        temp = temp->next;            //Assign second node to temp
+        delete trash;                 //Delete first node
+        if(temp == NULL)              //So we don't access NULL pointers
+        {
+            break;
+        }
+    }
+}
 
 //Setters
 void Payroll::setYear(int Year){
@@ -213,4 +236,132 @@ void Payroll::displayPayrollPayperiod()
 {
     cout << "Pay Period: " << getPayperiodStartMonth() << "/" << getPayperiodStartDay() << "/" << getPayperiodStartYear() << 
     " - " << getPayperiodEndMonth() << "/" << getPayperiodEndDay() << "/" << getPayperiodEndYear() << endl;
+}
+
+//Add Paycheck node to linked list
+void Payroll::addPaycheckNodeToEnd(double GrossAmount, double PreTaxHealthDeduction, double PostTaxHealthDeduction, 
+double RetirementDeduction401k, double RetirementDeductionRoth401k, bool DirectDeposit, Employee * EmployeePointer){
+
+    //Create Paycheck pointer
+    Paycheck * newPaycheckPointer = new Paycheck(GrossAmount, PreTaxHealthDeduction, PostTaxHealthDeduction, 
+RetirementDeduction401k, RetirementDeductionRoth401k, DirectDeposit, EmployeePointer);
+
+    //If there are no nodes that exist
+    if(head == NULL){
+
+        //Create first node
+        paycheckNode * node = new paycheckNode();
+        node->paycheckPointer = newPaycheckPointer;
+
+        node->next = NULL;
+        node->previous = NULL;
+
+   
+        //Both head & tail are pointing to the same single node
+        head = node;
+        tail = node;
+
+
+        payrollNumberOfPaychecks++;
+    }
+    else{    
+
+
+        //Otherwise, create subsequent node
+        paycheckNode * node = new paycheckNode();
+        node->paycheckPointer = newPaycheckPointer;
+        node->next = NULL;
+        node->previous = tail;
+        tail->next = node;
+        tail = node;
+
+        payrollNumberOfPaychecks++;
+    }
+}
+
+//Preview payroll checks
+void Payroll::previewPayroll(paycheckNode * head){
+    paycheckNode * traverser = head;
+    while (traverser != NULL){
+        traverser->paycheckPointer->displayCheck();
+        traverser = traverser->next;
+    }
+}
+
+//Delete Paycheck node
+void Payroll::deletePaycheckNode(paycheckNode * head, paycheckNode * nodeToDelete){
+
+    //Took from source
+    //https://www.geeksforgeeks.org/delete-a-node-in-a-doubly-linked-list/
+
+    //base case
+    if(head == NULL || nodeToDelete == NULL){
+        return;
+    }
+
+    //if node to be deleted is head node
+    if(head == nodeToDelete){
+        head = nodeToDelete->next;
+    }
+
+    //change next only if node to be deleted is not the last node
+    if(nodeToDelete != NULL){
+        nodeToDelete->next->previous = nodeToDelete->previous;
+    }
+
+    //change previous only if node to be deleted is not the first node
+    if(nodeToDelete->previous != NULL){
+        nodeToDelete->previous->next = nodeToDelete->next;
+    }
+
+    //delete the node by freeing memory
+    delete nodeToDelete;
+    nodeToDelete = 0;
+    return;
+}
+
+//Process the payroll
+void Payroll::processThePayroll(){
+
+    payrollHasProcessed = true;
+}
+
+void Payroll::incrementPayrollNumberOfChecks(){
+
+    //increase by 1
+    payrollNumberOfPaychecks++;
+}
+
+//Struct needs to be preceeded by classname:: if we are returning a struct
+Payroll::paycheckNode* Payroll::nextPaycheckNode(paycheckNode * currentNode){
+    return currentNode->next;
+}
+
+//Struct needs to be preceeded by classname:: if we are returning a struct
+Payroll::paycheckNode* Payroll::previousPaycheckNode(paycheckNode * currentNode){
+    return currentNode->previous;
+}
+
+//Struct needs to be preceeded by classname:: if we are returning a struct
+Payroll::paycheckNode* Payroll::getHeadPaycheckNode(){
+    return head;
+}
+
+//Struct needs to be preceeded by classname:: if we are returning a struct
+Payroll::paycheckNode* Payroll::getTailPaycheckNode(){
+    return tail;
+}
+
+Payroll::paycheckNode::paycheckNode(){
+
+    //EMPTY IN ORDER TO CREATE NODES
+
+}
+
+void Payroll::setIterator(paycheckNode * currentNode){
+    iterator = currentNode;
+}
+
+Payroll::paycheckNode* Payroll::getIterator(){
+    return iterator;
 }

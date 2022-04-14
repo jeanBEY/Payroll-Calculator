@@ -1,6 +1,8 @@
 #ifndef Payroll_hpp
 #define Payroll_hpp
 #include "Paycheck.h"
+#include "Employee.h"
+#include <string>
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -40,12 +42,16 @@ class Payroll{
        struct paycheckNode
        {
            Paycheck * paycheckPointer;
-           paycheckNode *next;
-           paycheckNode *previous;
+           paycheckNode * next;
+           paycheckNode * previous;
+           paycheckNode();
         };
         
-        paycheckNode *head;    //head pointer
-        paycheckNode *tail;    //tail pointer
+        paycheckNode * head;    //head pointer
+        paycheckNode * tail;    //tail pointer
+        paycheckNode * iterator; //current pointer
+
+        bool payrollHasProcessed;
 
     public:
 
@@ -53,7 +59,8 @@ class Payroll{
         Payroll(int, int, int, int, int, int, int, int, int);
 
         //Destructor
-
+        ~Payroll();
+        
         //Setters
         void setYear(int);
         void setMonth(int);
@@ -120,6 +127,35 @@ class Payroll{
        //Display payroll pay period
        void displayPayrollPayperiod();
 
+       //Add Paycheck node to linked list
+       void addPaycheckNodeToEnd(double, double, double, double, double, bool, Employee*);
+
+       //Preview payroll
+       void previewPayroll(paycheckNode *);
+
+       //Delete Paycheck node from linked list
+       void deletePaycheckNode(paycheckNode *, paycheckNode *);
+
+       //Process payroll
+       void processThePayroll();
+
+       //Increment payroll number of checks by 1
+       void incrementPayrollNumberOfChecks();
+
+       //Traversing linked list
+       paycheckNode * nextPaycheckNode(paycheckNode *);
+       paycheckNode * previousPaycheckNode(paycheckNode *);
+
+       //Return first node in linked list
+       paycheckNode * getHeadPaycheckNode();
+
+       //Return last node in linked list
+       paycheckNode * getTailPaycheckNode();
+
+       //set the iterator
+       void setIterator(paycheckNode *);
+
+       paycheckNode * getIterator();
 };
 
 #endif

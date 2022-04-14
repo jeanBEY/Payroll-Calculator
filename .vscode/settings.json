@@ -7,7 +7,8 @@
         "ios": "cpp",
         "__tuple": "cpp",
         "array": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "limits": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

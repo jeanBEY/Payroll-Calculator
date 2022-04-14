@@ -54,7 +54,7 @@ class PayrollProgram{
         void processPayroll();
         
         //Add employee to payroll
-        void addEmployeeToPayroll(Payroll *);
+        void addEmployeeToPayroll(Payroll *, int);
 
         //Edit the payroll (if checks exist)
         void editPayroll(Payroll *);

@@ -644,7 +644,7 @@ void PayrollProgram::processPayroll(){
         payrollCount++;       
 
         //now to add an employee to the payroll to issue a check
-        addEmployeeToPayroll(payrollPointer);
+        addEmployeeToPayroll(payrollPointer,0);
 
     }
     else if (payrollCount >= (payrollFrequency*2)){
@@ -682,7 +682,7 @@ void PayrollProgram::processPayroll(){
         payrollCount++;     
 
         //now to add an employee to the payroll to issue a check
-        addEmployeeToPayroll(payrollPointer);
+        addEmployeeToPayroll(payrollPointer,0);
 
     }
 
@@ -696,125 +696,130 @@ void PayrollProgram::printEmployeeList(){
     
 }
 
-void PayrollProgram::addEmployeeToPayroll(Payroll * currentPayroll){
+void PayrollProgram::addEmployeeToPayroll(Payroll * currentPayroll, int currentEmployeeIndex){
 
-    int i = 0;
     int choice = 0;
+    int lastIndex = activeEmployeeCount - 1;
 
-    //always start at beginning of employee list
-    for(int i = 0; i < activeEmployeeCount; i++){  //REMOVING FOR LOOP FOR NOW..
-        cout << endl << "***************************" << endl;
-        cout << "*     EMPLOYEE LISTING    *" << endl;
-        cout << "***************************" << endl;
 
-        cout << endl << "i = " << i << endl;
+    //COUT STATEMENTS - DELETE AFTER
+    cout << endl << "i (in do while) = " << currentEmployeeIndex << endl;
+    cout << endl << "active employee count (in do while) = " << activeEmployeeCount << endl;
+    cout << endl << "last index = " << lastIndex << endl;
 
-        activeEmployeeArray[i]->displayEmployeeInformation();
+    cout << endl << "***************************" << endl;
+    cout << "*     EMPLOYEE LISTING    *" << endl;
+    cout << "***************************" << endl;
 
-        cout << endl << "ADD EMPLOYEE TO PAYROLL - Please make a selection:" << endl << endl;
-        cout << "1 - Add check" << endl;
-        cout << "2 - Go to next employee" << endl;
-        cout << "3 - Edit the payroll" << endl;
-        cout << "4 - Quit (your payroll will be deleted & not be processed)" << endl;
+    //always show first employee in index [0]
+    activeEmployeeArray[currentEmployeeIndex]->displayEmployeeInformation();
 
-        //int choice;  REMOVING FOR NOW..
+    cout << endl << "ADD EMPLOYEE TO PAYROLL - Please make a selection:" << endl << endl;
+    cout << "1 - Add check" << endl;
+    cout << "2 - Go to next employee" << endl;
+    cout << "3 - Edit the payroll" << endl;
+    cout << "4 - Quit (your payroll will be deleted & not be processed)" << endl;
 
-        cin >> choice;
-        cin.clear();
+    cin >> choice;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+
+    //Add check
+    if(choice == 1){
+
+        double GrossAmount; 
+        double PreTaxHealthDeduction; 
+        double PostTaxHealthDeduction; 
+        double RetirementDeduction401k; 
+        double RetirementDeductionRoth401k; 
+        bool DirectDeposit; 
+        Employee * EmployeePointer = activeEmployeeArray[currentEmployeeIndex];
+
+        cout << "ENTER FOLLOWING INFORMATION:" << endl << endl;
+        cout << "GROSS AMOUNT:" << endl;
+        cin >> GrossAmount;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        cout << "PRE TAX HEALTH DEDUCTION:" << endl;
+        cin >> PreTaxHealthDeduction;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        cout << "POST TAX HEALTH DEDUCTION:" << endl;
+        cin >> PostTaxHealthDeduction;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        cout << "RETIREMENT DEDUCTION 401K:" << endl;
+        cin >> RetirementDeduction401k;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        cout << "RETIREMENT DEDUCTION ROTH 401K:" << endl;
+        cin >> RetirementDeductionRoth401k;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        cout << "DIRECT DEPOSIT: 1 for YES, 2 for NO" << endl;
+        int dirdep;
+        cin >> dirdep;
+        if(dirdep == 1){
+            DirectDeposit = 1;      //true
+        }
+        else if(dirdep == 2){
+            DirectDeposit = 0;      //false
+        }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
 
-        //Add check
-        if(choice == 1){
+        currentPayroll->addPaycheckNodeToEnd(GrossAmount, PreTaxHealthDeduction, PostTaxHealthDeduction, RetirementDeduction401k, RetirementDeductionRoth401k, DirectDeposit, EmployeePointer);
 
-            double GrossAmount; 
-            double PreTaxHealthDeduction; 
-            double PostTaxHealthDeduction; 
-            double RetirementDeduction401k; 
-            double RetirementDeductionRoth401k; 
-            bool DirectDeposit; 
-            Employee * EmployeePointer = activeEmployeeArray[i];
+        //increment payroll number of checks
+        currentPayroll->incrementPayrollNumberOfChecks();
 
-            cout << "ENTER FOLLOWING INFORMATION:" << endl << endl;
-            cout << "GROSS AMOUNT:" << endl;
-            cin >> GrossAmount;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
-            cout << "PRE TAX HEALTH DEDUCTION:" << endl;
-            cin >> PreTaxHealthDeduction;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
-            cout << "POST TAX HEALTH DEDUCTION:" << endl;
-            cin >> PostTaxHealthDeduction;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
-            cout << "RETIREMENT DEDUCTION 401K:" << endl;
-            cin >> RetirementDeduction401k;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
-            cout << "RETIREMENT DEDUCTION ROTH 401K:" << endl;
-            cin >> RetirementDeductionRoth401k;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
-            cout << "DIRECT DEPOSIT: 1 for YES, 2 for NO" << endl;
-            int dirdep;
-            cin >> dirdep;
-            if(dirdep == 1){
-                DirectDeposit = 1;      //true
-            }
-            else if(dirdep == 2){
-                DirectDeposit = 0;      //false
-            }
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');            //clears the buffer until new line character is hit (which is also cleared)
+        addEmployeeToPayroll(currentPayroll, currentEmployeeIndex);
 
-            currentPayroll->addPaycheckNodeToEnd(GrossAmount, PreTaxHealthDeduction, PostTaxHealthDeduction, RetirementDeduction401k, RetirementDeductionRoth401k, DirectDeposit, EmployeePointer);
-
-            //increment payroll number of checks
-            currentPayroll->incrementPayrollNumberOfChecks();
-
-            
-            if(i == (activeEmployeeCount-1)){
-                //if on last employee, start over by starting at beginning of activeEmployeeArray
-                cout << endl << "This is the last employee in the list." << endl;
-                cout << "Let's start from the beginning again..." << endl;
-                addEmployeeToPayroll(currentPayroll);
-            }
-            
-        }
-
-        //Go to next employee
-        if(choice == 2 && (i != (activeEmployeeCount-1))){
-            //go to next employee if we haven't reached the end of the employee list
-        }
-        if(choice == 2 && (i == (activeEmployeeCount-1))){
+        /*
+        if(i == (activeEmployeeCount-1)){
             //if on last employee, start over by starting at beginning of activeEmployeeArray
             cout << endl << "This is the last employee in the list." << endl;
             cout << "Let's start from the beginning again..." << endl;
             addEmployeeToPayroll(currentPayroll);
         }
-
-        //Edit payroll
-        if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() > 0){
-            editPayroll(currentPayroll);
-        }
-        if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() == 0){
-            
-            //cannot edit payroll with 0 checks
-            cout << endl << "You cannot edit the payroll there are no checks.  Please add an employee to the payroll." << endl;
-            cout << "Let's start from the beginning again..." << endl;
-            addEmployeeToPayroll(currentPayroll);
-        }
-
-        //Quit
-        if(choice == 4){
-
-            cout << endl << "Quit - Your payroll will be deleted & not process..." << endl;
-
-            //this was dynamically allocated so should be deleted
-            delete currentPayroll;
-
-            //set index of currentPayroll to point to NULL or zero & decrement payroll count
-            currentPayroll = 0;
-            payrollCount--;
-
-            menu();
-        }
-
+        */
+        
     }
+
+    //Go to next employee
+    if(choice == 2 && currentEmployeeIndex == lastIndex){
+        //if on last employee, start over by starting at beginning of activeEmployeeArray
+        cout << endl << "This is the last employee in the list." << endl;
+        cout << "Let's start from the beginning again..." << endl;
+        addEmployeeToPayroll(currentPayroll, 0);
+    }
+    if(choice == 2 && currentEmployeeIndex < lastIndex){
+        //go to next employee if we haven't reached the end of the employee list
+        currentEmployeeIndex++;
+        addEmployeeToPayroll(currentPayroll, currentEmployeeIndex);
+    }
+
+    //Edit payroll
+    if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() > 0){
+        editPayroll(currentPayroll);
+    }
+    if(choice == 3 && currentPayroll->getPayrollNumberOfPaychecks() == 0){
+        
+        //cannot edit payroll with 0 checks
+        cout << endl << "You cannot edit the payroll there are no checks.  Please add an employee to the payroll." << endl;
+        cout << "Let's start from the beginning again..." << endl;
+        addEmployeeToPayroll(currentPayroll, 0);
+    }
+
+    //Quit
+    if(choice == 4){
+
+        cout << endl << "Quit - Your payroll will be deleted & not process..." << endl;
+
+        //this was dynamically allocated so should be deleted
+        delete currentPayroll;
+
+        //set index of currentPayroll to point to NULL or zero & decrement payroll count
+        currentPayroll = 0;
+        payrollCount--;
+
+        menu();
+    }
+    
 }
 
 void PayrollProgram::editPayroll(Payroll * currentPayroll){
@@ -873,7 +878,7 @@ void PayrollProgram::editPayroll(Payroll * currentPayroll){
     if(choice == 3){
         //Set iterator to NULL so that the next time user wants to edit the payroll, program starts from head node
         currentPayroll->setIterator(NULL);
-        addEmployeeToPayroll(currentPayroll);
+        addEmployeeToPayroll(currentPayroll,0);
     }
 
     //Preview payroll
